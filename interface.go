@@ -33,7 +33,7 @@ type FB2 struct {
 			Date        string       `xml:"date"`
 			SrcURL      []string     `xml:"src-url"`
 			SrcOcr      string       `xml:"src-ocr"`
-			ID          string       `xml:"string"`
+			ID          string       `xml:"id"`
 			Version     float64      `xml:"version"`
 			History     string       `xml:"history"` // AnnotationType
 		} `xml:"document-info"`
