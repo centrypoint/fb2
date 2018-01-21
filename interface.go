@@ -49,11 +49,10 @@ type FB2 struct {
 			InfoType xml.Attr `xml:"info-type"`
 		} `xml:"custom-info"`
 	} `xml:"description"`
-	Body []struct {
-		Image ImageType `xml:"image"` // ImageType
-		Title TitleType `xml:"title"` // TitleType
-		// Epigraph []string `xml:"epigraph"` // EpigraphType
-		// Section  []string `xml:"section"`  // SectionType
+	Body struct {
+		Sections []struct {
+			P []string `xml:"p"`
+		} `xml:"section"`
 	} `xml:"body"`
 	Binary []struct {
 		ContentType xml.Attr `xml:"content-type"`
@@ -86,4 +85,8 @@ type ImageType struct {
 	Type xml.Attr `xml:"xlink:type"`
 	Href xml.Attr `xml:"xlink:href"`
 	Alt  string   `xml:"alt"`
+}
+
+// PType embedded fb2 type, represents paragraph
+type PType struct {
 }
