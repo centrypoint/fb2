@@ -57,8 +57,9 @@ type FB2 struct {
 		} `xml:"section"`
 	} `xml:"body"`
 	Binary []struct {
-		ContentType xml.Attr `xml:"content-type"`
-		ID          xml.Attr `xml:"id"`
+		Value       string `xml:",chardata"`
+		ContentType string `xml:"content-type,attr"`
+		ID          string `xml:"id,attr"`
 	} `xml:"binary"`
 }
 

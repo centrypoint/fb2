@@ -33,5 +33,5 @@ func TestParser(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	t.Logf("%+v\n", result.Description.TitleInfo)
+	t.Logf("%+v\n", result.Binary)
 }
