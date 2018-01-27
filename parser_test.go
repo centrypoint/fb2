@@ -29,9 +29,9 @@ func TestParser(t *testing.T) {
 
 	p := fb2.New(data)
 
-	if result, err = p.Unmarshall(); err != nil {
+	if result, err = p.Unmarshal(); err != nil {
 		t.Fatal(err)
 	}
 
-	t.Logf("%+v\n", result)
+	t.Logf("%+v\n", result.Description.TitleInfo)
 }

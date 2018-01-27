@@ -20,7 +20,9 @@ type FB2 struct {
 			Keywords   string   `xml:"keywords"`
 			Date       string   `xml:"date"`
 			Coverpage  struct { // Check additional info
-				Image []string `xml:"image"` // Check additional info
+				Image struct {
+					Href string `xml:"xlink:href,attr"`
+				} `xml:"image,allowempty"`
 			} `xml:"coverpage"`
 			Lang       string     `xml:"lang"`
 			SrcLang    string     `xml:"src-lang"`
@@ -58,6 +60,45 @@ type FB2 struct {
 		ContentType xml.Attr `xml:"content-type"`
 		ID          xml.Attr `xml:"id"`
 	} `xml:"binary"`
+}
+
+// UnmarshalCoverpage func
+func (f *FB2) UnmarshalCoverpage(data []byte) {
+	tagOpened := false
+	coverpageStartIndex := 0
+	coverpageEndIndex := 0
+	// imageHref := ""
+	tagName := ""
+_loop:
+	for i, v := range data {
+		if tagOpened {
+			switch v {
+			case '>':
+				if tagName != "p" && tagName != "/p" {
+				}
+				tagOpened = false
+				if tagName == "coverpage" {
+					coverpageStartIndex = i + 1
+				} else if tagName == "/coverpage" {
+					coverpageEndIndex = i - 11
+					break _loop
+				}
+				tagName = ""
+				break
+			default:
+				tagName += string(v)
+			}
+		} else {
+			if v == '<' {
+				tagOpened = true
+			}
+		}
+	}
+
+	if coverpageEndIndex > coverpageStartIndex {
+		href := parseImage(data[coverpageStartIndex:coverpageEndIndex])
+		f.Description.TitleInfo.Coverpage.Image.Href = href
+	}
 }
 
 // AuthorType embedded fb2 type, represents author info

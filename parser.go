@@ -17,11 +17,13 @@ func New(data []byte) *Parser {
 	}
 }
 
-// Unmarshall parse data to FB2 type
-func (p *Parser) Unmarshall() (result FB2, err error) {
+// Unmarshal parse data to FB2 type
+func (p *Parser) Unmarshal() (result FB2, err error) {
 	if err = xml.Unmarshal(p.book, &result); err != nil {
 		return
 	}
+
+	result.UnmarshalCoverpage(p.book)
 
 	return
 }
