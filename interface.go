@@ -8,59 +8,60 @@ import (
 
 // FB2 represents FB2 structure
 type FB2 struct {
-	FictionBook xml.Name   `xml:"FictionBook"`
-	Stylesheet  []xml.Attr `xml:"stylesheet"`
+	ID          string   `bson:"_id"`
+	FictionBook xml.Name `xml:"FictionBook" bson:"FictionBook"`
+	Stylesheet  []string `xml:"stylesheet" bson:"stylesheet"`
 	Description struct {
 		TitleInfo struct {
-			Genre      []string   `xml:"genre"`
-			GenreType  []xml.Attr `xml:"genreType"`
+			Genre      []string `xml:"genre" bson:"genre"`
+			GenreType  []string `xml:"genreType" bson:"genreType"`
 			Author     []AuthorType
-			BookTitle  string   `xml:"book-title"`
-			Annotation string   `xml:"annotation"` // Check additional info
-			Keywords   string   `xml:"keywords"`
-			Date       string   `xml:"date"`
-			Coverpage  struct { // Check additional info
+			BookTitle  string `xml:"book-title" bson:"book-title"`
+			Annotation string `xml:"annotation" bson:"annotation"`
+			Keywords   string `xml:"keywords" bson:"keywords"`
+			Date       string `xml:"date" bson:"date"`
+			Coverpage  struct {
 				Image struct {
-					Href string `xml:"xlink:href,attr"`
-				} `xml:"image,allowempty"`
-			} `xml:"coverpage"`
-			Lang       string     `xml:"lang"`
-			SrcLang    string     `xml:"src-lang"`
-			Translator AuthorType `xml:"translator"` // AuthorType
-			Sequence   string     `xml:"sequence"`   // SequenceType
-		} `xml:"title-info"`
+					Href string `xml:"xlink:href,attr" bson:"href"`
+				} `xml:"image,allowempty" bson:"image"`
+			} `xml:"coverpage" bson:"coverpage"`
+			Lang       string     `xml:"lang" bson:"lang"`
+			SrcLang    string     `xml:"src-lang" bson:"src-lang"`
+			Translator AuthorType `xml:"translator" bson:"translator"`
+			Sequence   string     `xml:"sequence" bson:"sequence"`
+		} `xml:"title-info" bson:"title-info"`
 		DocumentInfo struct {
-			Author      []AuthorType `xml:"author"` // AuthorType
-			ProgramUsed string       `xml:"program-used"`
-			Date        string       `xml:"date"`
-			SrcURL      []string     `xml:"src-url"`
-			SrcOcr      string       `xml:"src-ocr"`
-			ID          string       `xml:"id"`
-			Version     float64      `xml:"version"`
-			History     string       `xml:"history"` // AnnotationType
-		} `xml:"document-info"`
+			Author      []AuthorType `xml:"author" bson:"author"`
+			ProgramUsed string       `xml:"program-used" bson:"program-used"`
+			Date        string       `xml:"date" bson:"date"`
+			SrcURL      []string     `xml:"src-url" bson:"src-url"`
+			SrcOcr      string       `xml:"src-ocr" bson:"src-ocr"`
+			ID          string       `xml:"id" bson:"id"`
+			Version     float64      `xml:"version" bson:"version"`
+			History     string       `xml:"history" bson:"history"`
+		} `xml:"document-info" bson:"document-info"`
 		PublishInfo struct {
-			BookName  string `xml:"book-name"`
-			Publisher string `xml:"publisher"`
-			City      string `xml:"city"`
-			Year      int    `xml:"year"`
-			ISBN      string `xml:"isbn"`
-			Sequence  string `xml:"sequence"` // SequenceType
-		} `xml:"PublishInfo"`
+			BookName  string `xml:"book-name" bson:"book-name"`
+			Publisher string `xml:"publisher" bson:"publisher"`
+			City      string `xml:"city" bson:"city"`
+			Year      int    `xml:"year" bson:"year"`
+			ISBN      string `xml:"isbn" bson:"isbn"`
+			Sequence  string `xml:"sequence" bson:"sequence"`
+		} `xml:"PublishInfo" bson:"PublishInfo"`
 		CustomInfo []struct {
-			InfoType xml.Attr `xml:"info-type"`
-		} `xml:"custom-info"`
-	} `xml:"description"`
+			InfoType string `xml:"info-type" bson:"info-type"`
+		} `xml:"custom-info" bson:"custom-info"`
+	} `xml:"description" bson:"description"`
 	Body struct {
 		Sections []struct {
-			P []string `xml:"p"`
-		} `xml:"section"`
-	} `xml:"body"`
+			P []string `xml:"p" bson:"p"`
+		} `xml:"section" bson:"section"`
+	} `xml:"body" bson:"body"`
 	Binary []struct {
-		Value       string `xml:",chardata"`
-		ContentType string `xml:"content-type,attr"`
-		ID          string `xml:"id,attr"`
-	} `xml:"binary"`
+		Value       string `xml:",chardata" bson:",chardata"`
+		ContentType string `xml:"content-type,attr" bson:"content-type,attr"`
+		ID          string `xml:"id,attr" bson:"id,attr"`
+	} `xml:"binary" bson:"binary"`
 }
 
 // UnmarshalCoverpage func
@@ -120,13 +121,6 @@ type TextFieldType struct {
 type TitleType struct {
 	P         []string `xml:"p"`
 	EmptyLine []string `xml:"empty-line"`
-}
-
-// ImageType embedded fb2 type, represents image information
-type ImageType struct {
-	Type xml.Attr `xml:"xlink:type"`
-	Href xml.Attr `xml:"xlink:href"`
-	Alt  string   `xml:"alt"`
 }
 
 // PType embedded fb2 type, represents paragraph
