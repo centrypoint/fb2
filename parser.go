@@ -2,7 +2,9 @@
 package fb2
 
 import (
+	"bytes"
 	"encoding/xml"
+	"io"
 )
 
 // Parser struct
@@ -17,9 +19,21 @@ func New(data []byte) *Parser {
 	}
 }
 
+// CharsetReader required for change encodings
+func (p *Parser) CharsetReader(c string, i io.Reader) (r io.Reader, e error) {
+	switch c {
+	case "windows-1251":
+		r = decodeWin1251(i)
+	}
+	return
+}
+
 // Unmarshal parse data to FB2 type
 func (p *Parser) Unmarshal() (result FB2, err error) {
-	if err = xml.Unmarshal(p.book, &result); err != nil {
+	reader := bytes.NewReader(p.book)
+	decoder := xml.NewDecoder(reader)
+	decoder.CharsetReader = p.CharsetReader
+	if err = decoder.Decode(&result); err != nil {
 		return
 	}
 

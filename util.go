@@ -1,5 +1,11 @@
 package fb2
 
+import (
+	"io"
+
+	"golang.org/x/text/encoding/charmap"
+)
+
 // get xlink from enclosed tag image
 func parseImage(data []byte) string {
 	result := ""
@@ -18,4 +24,12 @@ _loop:
 		}
 	}
 	return result
+}
+
+// decode windows-1251
+func decodeWin1251(i io.Reader) (r io.Reader) {
+	decoder := charmap.Windows1251.NewDecoder()
+	r = decoder.Reader(i)
+
+	return
 }

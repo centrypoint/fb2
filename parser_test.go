@@ -14,7 +14,7 @@ func TestParser(t *testing.T) {
 		data     []byte
 		result   fb2.FB2
 		err      error
-		filename = "test_books/The_Murder_of_Roger_Ackroyd-Agatha_Christie.fb2"
+		filename = "test_books/win-enc.fb2"
 	)
 
 	if file, err = os.OpenFile(filename, os.O_RDONLY, 0666); err != nil {
@@ -33,5 +33,5 @@ func TestParser(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	t.Logf("%+v\n", result.Binary)
+	t.Logf("%+v\n", result)
 }
