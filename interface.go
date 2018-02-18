@@ -13,13 +13,13 @@ type FB2 struct {
 	Stylesheet  []string `xml:"stylesheet" bson:"stylesheet"`
 	Description struct {
 		TitleInfo struct {
-			Genre      []string `xml:"genre" bson:"genre"`
-			GenreType  []string `xml:"genreType" bson:"genreType"`
-			Author     []AuthorType
-			BookTitle  string `xml:"book-title" bson:"book-title"`
-			Annotation string `xml:"annotation" bson:"annotation"`
-			Keywords   string `xml:"keywords" bson:"keywords"`
-			Date       string `xml:"date" bson:"date"`
+			Genre      []string     `xml:"genre" bson:"genre"`
+			GenreType  []string     `xml:"genreType" bson:"genreType"`
+			Author     []AuthorType `xml:"author" bson:"author"`
+			BookTitle  string       `xml:"book-title" bson:"book-title"`
+			Annotation string       `xml:"annotation" bson:"annotation"`
+			Keywords   string       `xml:"keywords" bson:"keywords"`
+			Date       string       `xml:"date" bson:"date"`
 			Coverpage  struct {
 				Image struct {
 					Href string `xml:"xlink:href,attr" bson:"href"`
