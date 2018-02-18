@@ -7,6 +7,7 @@ import (
 // List of interfaces for integration
 
 // FB2 represents FB2 structure
+//proteus:generate
 type FB2 struct {
 	ID          string   `bson:"_id"`
 	FictionBook xml.Name `xml:"FictionBook" bson:"FictionBook"`

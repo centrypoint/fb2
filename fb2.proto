@@ -1,0 +1,43 @@
+syntax = "proto3";
+package fb2;
+
+message PFB2 {
+  string ID = 1;
+  Description Description = 2;
+}
+
+message Description {
+  TitleInfo TitleInfo = 1;
+}
+
+message TitleInfo {
+  repeated string Genre = 1;
+  repeated string GenreType = 2;
+  repeated AuthorType Author = 3;
+  string BookTitle = 4;
+  string Annotation = 5;
+  string Keywords = 6;
+  string Date = 7;
+  Coverpage Coverpage = 8;
+  string Lang = 9;
+  string SrcLang = 10;
+  AuthorType Translator = 11;
+  string Sequence = 12;
+}
+
+message Coverpage {
+  Image Image = 1;
+}
+
+message Image {
+  string Href = 1;
+}
+
+message AuthorType {
+  string FirstName = 1;
+  string MiddleName = 2;
+  string LastName = 3;
+  string Nickname = 4;
+  string HomePage = 5;
+  string Email = 6;
+}
