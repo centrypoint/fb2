@@ -2,6 +2,8 @@ package fb2
 
 import (
 	"encoding/xml"
+
+	proto "github.com/centrypoint/fb2/prototype"
 )
 
 // List of interfaces for integration
@@ -127,3 +129,6 @@ type TitleType struct {
 // PType embedded fb2 type, represents paragraph
 type PType struct {
 }
+
+// ProtoFB2 type
+type ProtoFB2 proto.PFB2

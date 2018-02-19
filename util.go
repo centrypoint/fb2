@@ -3,6 +3,7 @@ package fb2
 import (
 	"io"
 
+	prototype "github.com/centrypoint/fb2/prototype"
 	"golang.org/x/text/encoding/charmap"
 )
 
@@ -35,8 +36,8 @@ func decodeWin1251(i io.Reader) (r io.Reader) {
 }
 
 // ToPB converts fb2 to protobuf fb2
-func ToPB(target FB2) PFB2 {
-	var result PFB2
+func ToPB(target FB2) prototype.PFB2 {
+	var result = NewPFB2()
 
 	result.Description.TitleInfo.Annotation = target.Description.TitleInfo.Annotation
 	for i, v := range target.Description.TitleInfo.Author {
@@ -50,6 +51,14 @@ func ToPB(target FB2) PFB2 {
 	result.Description.TitleInfo.Annotation = target.Description.TitleInfo.Annotation
 	result.Description.TitleInfo.Annotation = target.Description.TitleInfo.Annotation
 	result.ID = target.ID
+
+	return result
+}
+
+func NewPFB2() prototype.PFB2 {
+	var result prototype.PFB2
+	result.Description = new(prototype.Description)
+	result.Description.TitleInfo = new(prototype.TitleInfo)
 
 	return result
 }
